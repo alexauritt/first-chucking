@@ -44,6 +44,8 @@ for (0 => int n; n < 4; n++) {
 
 Math.random2(0,7) => int randomIndexer;
 
+1 => int panRight;
+0.0 => float panPosition;
 
 for ( 0 => int k; k < 15; k++) {
     
@@ -52,6 +54,24 @@ for ( 0 => int k; k < 15; k++) {
         // random, panning melodic 'noise' track
         notes[k * i * randomIndexer % 8] => q.freq;
         0.03 * k => q.gain;
+        
+        if (i % 2 == 0) {
+            if (panRight == 1) {
+                if (panPosition >= 1) {
+                    0 => panRight;
+                } else {
+                    panPosition + 0.2 => panPosition;
+                    panPosition => panQ.pan;
+                }
+            } else {
+                if (panPosition <= -1) {
+                    1 => panRight;
+                } else {
+                    panPosition - 0.05 => panPosition;
+                    panPosition => panQ.pan;
+                }
+            }
+        }
         
         // melody track, most notes fixed, a few are random
         if (k < 2) {
