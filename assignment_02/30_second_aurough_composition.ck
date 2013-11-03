@@ -1,4 +1,4 @@
-// 30 Second Aurough Ditty
+// 30 Second Aurough Composition
 
 SinOsc s => Pan2 panS => dac;
 TriOsc t => Pan2 panT => dac;
