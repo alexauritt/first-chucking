@@ -1,5 +1,7 @@
 // 30 Second Aurough Composition
 
+<<< "Assignment_2_Aurough_Composition" >>>;
+
 SinOsc s => Pan2 panS => dac;
 TriOsc t => Pan2 panT => dac;
 SinOsc q => Pan2 panQ => dac;
