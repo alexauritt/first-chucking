@@ -1,11 +1,15 @@
 // 30 Second Aurough Ditty
 
-SinOsc s => dac;
-TriOsc t => dac;
-SinOsc q => dac;
+SinOsc s => Pan2 panS => dac;
+TriOsc t => Pan2 panT => dac;
+SinOsc q => Pan2 panQ => dac;
 
 0.0 => t.gain;
 0.2 => q.gain;
+
+-0.4 => panS.pan;
+0.4 => panT.pan;
+0.0 => panQ.pan;
 
 // notes (frequencies)
 50 => float dM;
@@ -45,11 +49,11 @@ for ( 0 => int k; k < 15; k++) {
     
     for ( 0 => int i; i < 8; i++) {    
         
-        // random track
+        // random, panning melodic 'noise' track
         notes[k * i * randomIndexer % 8] => q.freq;
         0.03 * k => q.gain;
         
-        // melody track
+        // melody track, most notes fixed, a few are random
         if (k < 2) {
             if ((i == 1) || (i == 6)) {
                 notes[3] => t.freq;
@@ -150,7 +154,7 @@ for ( 0 => int k; k < 15; k++) {
             } else if (i == 6) {
                 notes[4] => s.freq;
             }
-        } else { // turn sound off, for eight note (half second)
+        } else { // turn sound off, for one beat)
             silence => s.gain;
         }    
         
