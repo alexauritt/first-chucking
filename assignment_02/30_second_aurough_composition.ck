@@ -33,8 +33,11 @@ SinOsc q => Pan2 panQ => dac;
 [dM,eM,fM,gM,aM,bM,cM,d2M] @=> float midiNotes[];
 
 float notes[8];
+float higherOctaveNotes[8];
+
 for (0 => int m; m < 8; m++) {
     Std.mtof(midiNotes[m]) => notes[m];
+    Std.mtof(midiNotes[m] + 12) => higherOctaveNotes[m];
 }
 
 float randomNotes[4];
@@ -52,7 +55,7 @@ for ( 0 => int k; k < 15; k++) {
     for ( 0 => int i; i < 8; i++) {    
         
         // random, panning melodic 'noise' track
-        notes[k * i * randomIndexer % 8] => q.freq;
+        higherOctaveNotes[k * i * randomIndexer % 8] => q.freq;
         0.03 * k => q.gain;
         
         if (i % 2 == 0) {
