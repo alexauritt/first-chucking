@@ -1,11 +1,15 @@
-SndBuf hiHatSound => dac;
+SndBuf hiHat => dac;
 SndBuf kick => dac;
 
-me.dir() => string path;
-"/audio/hihat_01.wav" => string filename;
+string hiHatSamples[3];
+me.dir() + "/audio/hiHat_01.wav" => hiHatSamples[0];
+me.dir() + "/audio/hiHat_02.wav" => hiHatSamples[1];
+me.dir() + "/audio/hiHat_04.wav" => hiHatSamples[2];
 
-path + filename => filename;
-filename => hiHatSound.read;
+
+me.dir() => string path;
+string filename;
+
 
 "/audio/kick_02.wav" => filename;
 path + filename => filename;
@@ -15,9 +19,9 @@ filename => kick.read;
 0 => kick.pos;
 1 => kick.rate;
 
-0.2 => hiHatSound.gain;
-0 => hiHatSound.pos;
-1.4 => hiHatSound.rate;
+0.2 => hiHat.gain;
+0 => hiHat.pos;
+1.4 => hiHat.rate;
 
 
 0.125::second => dur eighth;
@@ -44,19 +48,24 @@ for (0 => int measure; measure < 32; measure++) {
         
         // hihat rhythm
         if ((subBeatIndex == 0) || (subBeatIndex == 3) || (subBeatIndex == 5)) {
-            0.2 => hiHatSound.gain;
+            0.2 => hiHat.gain;
+            Math.random2(0,2) => int which;
+            hiHatSamples[which] => hiHat.read;
         } else if ((subBeatIndex == 1) || (subBeatIndex == 7) || (subBeatIndex == 14)) {
-            0.8 => hiHatSound.gain;
+            0.8 => hiHat.gain;
+            hiHatSamples[2] => hiHat.read;
         } else if ((subBeatIndex == 6) || (subBeatIndex == 13) || (subBeatIndex == 10)) {
-            0.1 => hiHatSound.gain;
+            0.1 => hiHat.gain;
+            hiHatSamples[1] => hiHat.read;
         } else if ((subBeatIndex == 9) || (subBeatIndex == 11)) {
-            0.0 => hiHatSound.gain;  
+            0.0 => hiHat.gain;  
         } else {
-            0.6 => hiHatSound.gain;
+            hiHatSamples[0] => hiHat.read;
+            0.6 => hiHat.gain;
         }
         
         
-        0 => hiHatSound.pos;
+        0 => hiHat.pos;
         1::eighth => now;
     }
 }
