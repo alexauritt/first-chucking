@@ -1,3 +1,25 @@
+// notes (frequencies)
+50 => float dM;
+52 => float eM;
+53 => float fM;
+55 => float gM;
+57 => float aM;
+59 => float bM;
+60 => float cM;
+62 => float d2M;
+
+// midi note sequence
+[dM,eM,fM,gM,aM,bM,cM,d2M] @=> float midiNotes[];
+
+float notes[8];
+float higherOctaveNotes[8];
+
+for (0 => int m; m < 8; m++) {
+    Std.mtof(midiNotes[m]) => notes[m];
+    Std.mtof(midiNotes[m] + 12) => higherOctaveNotes[m];
+}
+
+
 SndBuf hiHat => dac;
 SndBuf kick => dac;
 SndBuf snare => dac;
