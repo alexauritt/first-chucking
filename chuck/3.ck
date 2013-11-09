@@ -1,11 +1,16 @@
 SndBuf hiHat => dac;
 SndBuf kick => dac;
+SndBuf snare => dac;
 
 string hiHatSamples[3];
 me.dir() + "/audio/hiHat_01.wav" => hiHatSamples[0];
 me.dir() + "/audio/hiHat_02.wav" => hiHatSamples[1];
 me.dir() + "/audio/hiHat_04.wav" => hiHatSamples[2];
 
+string snareSamples[3];
+me.dir() + "/audio/snare_01.wav" => snareSamples[0];
+me.dir() + "/audio/snare_02.wav" => snareSamples[1];
+me.dir() + "/audio/snare_03.wav" => snareSamples[2];
 
 me.dir() => string path;
 string filename;
@@ -31,11 +36,37 @@ int isFirstPart;
 int subBeatIndex;
 
 for (0 => int measure; measure < 32; measure++) {
+
+    Math.random2(0,3) => int pattern;
+
     for (0 => int beat; beat < 12; beat++) {
-      beat => subBeatIndex;
+        beat => subBeatIndex;
         (measure % 2 == 0) => isFirstPart;
         if (!isFirstPart) {
-          subBeatIndex + 12 => subBeatIndex;
+            subBeatIndex + 12 => subBeatIndex;
+        }
+        
+        
+        if (pattern == 0) {
+            if ((subBeatIndex == 9) || (subBeatIndex == 12) || 
+                (subBeatIndex == 17) || (subBeatIndex == 21)) {
+                snareSamples[0] => snare.read;
+                0 => snare.pos;
+                0.1 * Math.random2(1,6) => snare.gain;
+            }
+        } else if (pattern == 1) {
+            if ((subBeatIndex == 1) || (subBeatIndex == 2) || 
+                (subBeatIndex == 15) || (subBeatIndex == 21)) {
+                snareSamples[2] => snare.read;
+                0 => snare.pos;
+                0.1 * Math.random2(1,6) => snare.gain;
+            }   
+        } else if (pattern == 2) {
+            if ((subBeatIndex == 6)) {
+                snareSamples[0] => snare.read;
+                0 => snare.pos;
+                1.0 => snare.gain;
+            }   
         }
         
         // kick
@@ -66,24 +97,7 @@ for (0 => int measure; measure < 32; measure++) {
             }
         } else {
             0.0 => hiHat.gain;
-        }
-        //        if ((beat == 0) || (subBeatIndex == 3) || (subBeatIndex == 5)) {
-        //            0.2 => hiHat.gain;
-        //            Math.random2(0,2) => int which;
-        //            hiHatSamples[which] => hiHat.read;
-        //        } else if ((subBeatIndex == 1) || (subBeatIndex == 7) || (subBeatIndex == 14)) {
-        //            0.8 => hiHat.gain;
-        //            hiHatSamples[2] => hiHat.read;
-        //        } else if ((subBeatIndex == 6) || (subBeatIndex == 13) || (subBeatIndex == 10)) {
-        //            0.1 => hiHat.gain;
-        //            hiHatSamples[1] => hiHat.read;
-        //        } else if ((subBeatIndex == 9) || (subBeatIndex == 11)) {
-        //            0.0 => hiHat.gain;  
-        //        } else {
-        //            hiHatSamples[0] => hiHat.read;
-        //            0.6 => hiHat.gain;
-        //        }
-        
+        }        
         
         0 => hiHat.pos;
         1::eighth_triplet => now;
