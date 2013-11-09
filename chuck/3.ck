@@ -102,7 +102,23 @@ for (0 => int measure; measure < 32; measure++) {
                 notes[6] => s.freq;
             } else if (subBeatIndex == 6) {
                 notes[4] => s.freq;
-            }
+            } else if (subBeatIndex == 14) {
+                notes[3] => s.freq;
+            } else if (subBeatIndex == 8) {
+                notes[7] => s.freq;
+            } else if (subBeatIndex == 10) {
+                notes[5] => s.freq;
+            } else if (subBeatIndex == 12) {
+                notes[3] => s.freq;
+            } else if (subBeatIndex == 16) {
+                notes[2] => s.freq;
+            } else if (subBeatIndex == 18) {
+                notes[4] => s.freq;
+            } else if (subBeatIndex == 20) {
+                notes[5] => s.freq;
+            } else if (subBeatIndex == 22) {
+                notes[1] => s.freq;
+            }           
         } else { // turn sound off, for one beat)
             0.0 => s.gain;
         }    
