@@ -59,17 +59,20 @@ filename => kick.read;
 250::ms => dur quarter;
 quarter * (1.0 / 3.0) => dur eighth_triplet;
 
+// variables used to distinguish every other measure
 int isFirstPart;
 int subBeatIndex;
+
+// vary the mod divisor to build up rhythm track pulse intensity
 int rhythmTrackDivider;
 
+// variables to track panning
 1 => int panRight;
 0.0 => float panPosition;
 
 
 for (0 => int measure; measure < 32; measure++) {
     
-    Math.random2(0,3) => int pattern;
     if (measure < 8) {
       4 => rhythmTrackDivider;
     } else if (measure < 16) {
@@ -105,6 +108,7 @@ for (0 => int measure; measure < 32; measure++) {
             // turn sound on
             0.5 => s.gain;
             
+            // rhythm track panning -- left to right and back
             if (panRight == 1) {
                 if (panPosition >= 1) {
                     0 => panRight;
@@ -120,8 +124,6 @@ for (0 => int measure; measure < 32; measure++) {
                     panPosition => panS.pan;
                 }
             }
-            
-            
             
             // increment to next note
             if (subBeatIndex == 0) {
@@ -154,8 +156,8 @@ for (0 => int measure; measure < 32; measure++) {
         }    
         
         
-        
-        
+        // vary the snare ghost note patterns
+        Math.random2(0,3) => int pattern;
         if (pattern == 0) {
             if ((subBeatIndex == 9) || (subBeatIndex == 12) || 
             (subBeatIndex == 17) || (subBeatIndex == 21)) {
