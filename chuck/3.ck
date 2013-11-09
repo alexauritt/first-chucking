@@ -19,7 +19,7 @@ for (0 => int m; m < 8; m++) {
     Std.mtof(midiNotes[m] + 12) => higherOctaveNotes[m];
 }
 
-SinOsc s => dac;
+SinOsc s => Pan2 panS => dac;
 SndBuf hiHat => dac;
 SndBuf kick => dac;
 SndBuf snare => dac;
@@ -63,6 +63,10 @@ int isFirstPart;
 int subBeatIndex;
 int rhythmTrackDivider;
 
+1 => int panRight;
+0.0 => float panPosition;
+
+
 for (0 => int measure; measure < 32; measure++) {
     
     Math.random2(0,3) => int pattern;
@@ -99,7 +103,25 @@ for (0 => int measure; measure < 32; measure++) {
         // rhythm track
         if (subBeatIndex % rhythmTrackDivider == 0) {
             // turn sound on
-            0.3 => s.gain;
+            0.5 => s.gain;
+            
+            if (panRight == 1) {
+                if (panPosition >= 1) {
+                    0 => panRight;
+                } else {
+                    panPosition + 0.2 => panPosition;
+                    panPosition => panS.pan;
+                }
+            } else {
+                if (panPosition <= -1) {
+                    1 => panRight;
+                } else {
+                    panPosition - 0.05 => panPosition;
+                    panPosition => panS.pan;
+                }
+            }
+            
+            
             
             // increment to next note
             if (subBeatIndex == 0) {
