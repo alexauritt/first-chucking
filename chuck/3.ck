@@ -61,10 +61,18 @@ quarter * (1.0 / 3.0) => dur eighth_triplet;
 
 int isFirstPart;
 int subBeatIndex;
+int rhythmTrackDivider;
 
 for (0 => int measure; measure < 32; measure++) {
     
     Math.random2(0,3) => int pattern;
+    if (measure < 8) {
+      4 => rhythmTrackDivider;
+    } else if (measure < 16) {
+      3 => rhythmTrackDivider;
+    } else if (measure < 24) {
+      2 => rhythmTrackDivider;
+    }
     
     for (0 => int beat; beat < 12; beat++) {
         
@@ -89,7 +97,7 @@ for (0 => int measure; measure < 32; measure++) {
         }
         
         // rhythm track
-        if (subBeatIndex % 2 == 0) {
+        if (subBeatIndex % rhythmTrackDivider == 0) {
             // turn sound on
             0.3 => s.gain;
             
