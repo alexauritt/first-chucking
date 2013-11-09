@@ -19,7 +19,7 @@ for (0 => int m; m < 8; m++) {
     Std.mtof(midiNotes[m] + 12) => higherOctaveNotes[m];
 }
 
-
+SinOsc s => dac;
 SndBuf hiHat => dac;
 SndBuf kick => dac;
 SndBuf snare => dac;
@@ -67,8 +67,8 @@ for (0 => int measure; measure < 32; measure++) {
     Math.random2(0,3) => int pattern;
     
     for (0 => int beat; beat < 12; beat++) {
-
-// effects
+        
+        // effects
         if ((measure == 4) & (beat == 0)) {
             stereo_fxSamples[0] => effects.read;
             effects.samples() => int sampleCount;
@@ -80,16 +80,34 @@ for (0 => int measure; measure < 32; measure++) {
             1.3 => effects.rate;
             0 => effects.pos;
             0.065 => effects.gain;
-        }
-        
-        
-        
+        }        
         
         beat => subBeatIndex;
         (measure % 2 == 0) => isFirstPart;
         if (!isFirstPart) {
             subBeatIndex + 12 => subBeatIndex;
         }
+        
+        // rhythm track
+        if (subBeatIndex % 2 == 0) {
+            // turn sound on
+            0.3 => s.gain;
+            
+            // increment to next note
+            if (subBeatIndex == 0) {
+                notes[1] => s.freq;
+            } else if (subBeatIndex == 2) {
+                notes[0] => s.freq;
+            } else if (subBeatIndex == 4) {
+                notes[6] => s.freq;
+            } else if (subBeatIndex == 6) {
+                notes[4] => s.freq;
+            }
+        } else { // turn sound off, for one beat)
+            0.0 => s.gain;
+        }    
+        
+        
         
         
         if (pattern == 0) {
