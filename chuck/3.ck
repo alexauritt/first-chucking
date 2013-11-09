@@ -1,6 +1,7 @@
 SndBuf hiHat => dac;
 SndBuf kick => dac;
 SndBuf snare => dac;
+SndBuf effects => dac;
 
 string hiHatSamples[3];
 me.dir() + "/audio/hiHat_01.wav" => hiHatSamples[0];
@@ -12,9 +13,13 @@ me.dir() + "/audio/snare_01.wav" => snareSamples[0];
 me.dir() + "/audio/snare_02.wav" => snareSamples[1];
 me.dir() + "/audio/snare_03.wav" => snareSamples[2];
 
+string stereo_fxSamples[2];
+me.dir() + "/audio/stereo_fx_01.wav" => stereo_fxSamples[0];
+me.dir() + "/audio/stereo_fx_02.wav" => stereo_fxSamples[1];
+
+
 me.dir() => string path;
 string filename;
-
 
 "/audio/kick_02.wav" => filename;
 path + filename => filename;
@@ -36,10 +41,28 @@ int isFirstPart;
 int subBeatIndex;
 
 for (0 => int measure; measure < 32; measure++) {
-
+    
     Math.random2(0,3) => int pattern;
-
+    
     for (0 => int beat; beat < 12; beat++) {
+
+// effects
+        if ((measure == 4) & (beat == 0)) {
+            stereo_fxSamples[0] => effects.read;
+            effects.samples() => int sampleCount;
+            sampleCount => effects.pos;
+            -1.0 => effects.rate;
+            0.4 => effects.gain;
+        } else if ((measure == 14) && (beat == 0)) {
+            stereo_fxSamples[1] => effects.read;
+            1.3 => effects.rate;
+            0 => effects.pos;
+            0.065 => effects.gain;
+        }
+        
+        
+        
+        
         beat => subBeatIndex;
         (measure % 2 == 0) => isFirstPart;
         if (!isFirstPart) {
@@ -49,14 +72,14 @@ for (0 => int measure; measure < 32; measure++) {
         
         if (pattern == 0) {
             if ((subBeatIndex == 9) || (subBeatIndex == 12) || 
-                (subBeatIndex == 17) || (subBeatIndex == 21)) {
+            (subBeatIndex == 17) || (subBeatIndex == 21)) {
                 snareSamples[0] => snare.read;
                 0 => snare.pos;
                 0.1 * Math.random2(1,6) => snare.gain;
             }
         } else if (pattern == 1) {
             if ((subBeatIndex == 1) || (subBeatIndex == 2) || 
-                (subBeatIndex == 15) || (subBeatIndex == 21)) {
+            (subBeatIndex == 15) || (subBeatIndex == 21)) {
                 snareSamples[2] => snare.read;
                 0 => snare.pos;
                 0.1 * Math.random2(1,6) => snare.gain;
@@ -83,7 +106,8 @@ for (0 => int measure; measure < 32; measure++) {
         }
         
         // hihat rhythm
-        if ((subBeatIndex == 0) || (subBeatIndex == 6) || (subBeatIndex == 12) || (subBeatIndex == 18)) {
+        if ((subBeatIndex == 0) || (subBeatIndex == 6) || 
+        (subBeatIndex == 12) || (subBeatIndex == 18)) {
             0.4 => hiHat.gain;
             hiHatSamples[1] => hiHat.read;
         } else if ((beat == 5) || (beat == 10)) {
