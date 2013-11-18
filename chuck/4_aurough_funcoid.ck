@@ -75,11 +75,39 @@ for (0 => int i; i < 8; i++) {
    Math.random2(-1,7) => randomMelody[i];
 }
 
+// variables to track panning
+1 => int panRight;
+0.0 => float panPosition;
+
+fun void changePan() {
+    if (panRight == 1) {
+        if (panPosition >= 1) {
+            0 => panRight;
+        } else {
+            panPosition + 0.05 => panPosition;
+            panPosition => panS.pan;
+        }
+    } else {
+        if (panPosition <= -1) {
+            1 => panRight;
+        } else {
+            panPosition - 0.05 => panPosition;
+            panPosition => panS.pan;
+        }
+    }
+}
+
+
+fun void playAndPanPitzSound(int soundIndex) {
+    midOctaveNotes[soundIndex] => s.freq;
+    changePan();
+}
 
 
 fun void section( int pitzArray[], int grooveArray[], int melodyArray[]) {
   for (0 => int i; i < pitzArray.cap(); i++) {
-    midOctaveNotes[pitzArray[i]] => s.freq;
+
+    playAndPanPitzSound(pitzArray[i]);
     playDrumSound(grooveArray[i]);
     playMelody(melodyArray[i]);
     1::quarter => now;
