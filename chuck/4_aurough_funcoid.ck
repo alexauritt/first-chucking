@@ -69,6 +69,14 @@ for (0 => int m; m < 8; m++) {
 [-1,3,-1,4,-1,1,2,3] @=> int melodyArray3[];
 [4,3,2,7,0,1,5,3] @=> int melodyArray4[];
 [2,1,0,4,-1,5,2,7] @=> int melodyArray5[];
+
+int randomMelody[8];
+for (0 => int i; i < 8; i++) {
+   Math.random2(-1,7) => randomMelody[i];
+}
+
+
+
 fun void section( int pitzArray[], int grooveArray[], int melodyArray[]) {
   for (0 => int i; i < pitzArray.cap(); i++) {
     midOctaveNotes[pitzArray[i]] => s.freq;
@@ -144,6 +152,10 @@ section(pitzPattern3, grooveArray2, melodyArray3);
 
 section(pitzPattern2, grooveArray1, melodyArray4);
 section(pitzPattern2, grooveArray1, melodyArray5);
+
+section(pitzPattern2, grooveArray1, randomMelody);
+section(pitzPattern2, grooveArray1, randomMelody);
+
 
 section(pitzPattern1, grooveArray0, melodyArray0);
 section(pitzPattern1, grooveArray0, melodyArray0);
