@@ -1,4 +1,4 @@
-<<< "4 Aurough Techo" >>>;
+<<< "4 Aurough Funcoid" >>>;
 
 
 250::ms => dur quarter;
