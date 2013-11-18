@@ -7,10 +7,13 @@
 // midi note sequence
 [51.0, 53.0, 55.0, 56.0, 58.0, 60.0, 61.0, 63.0] @=> float midiNotes[];
 
+// different octave arrays
 float lowOctaveNotes[8];
 float midOctaveNotes[8];
 float higherOctaveNotes[8];
 
+
+// load audio files
 string hiHatSamples[3];
 me.dir() + "/audio/hiHat_01.wav" => hiHatSamples[0];
 me.dir() + "/audio/hiHat_02.wav" => hiHatSamples[1];
@@ -34,6 +37,7 @@ SndBuf hiHat => dac;
 SndBuf kick => dac;
 SndBuf snare => dac;
 
+// drums start quiet
 0 => kick.gain;
 0 => snare.gain;
 0 => hiHat.gain;
@@ -46,8 +50,8 @@ hiHatSamples[0] => hiHat.read;
 snareSamples[0] => snare.read;
 kickSamples[0] => kick.read;
 
-0.45 => s.gain;
-0.35 => mel.gain;
+0.7 => s.gain;
+0.1 => mel.gain;
 
 for (0 => int m; m < 8; m++) {
     Std.mtof(midiNotes[m] - 12) => lowOctaveNotes[m];
@@ -79,6 +83,7 @@ for (0 => int i; i < 8; i++) {
 1 => int panRight;
 0.0 => float panPosition;
 
+// increment pan position
 fun void changePan() {
     if (panRight == 1) {
         if (panPosition >= 1) {
@@ -136,6 +141,7 @@ fun void hiHatAndSnare() {
         0 => snare.gain;
         hiHatGain => hiHat.gain;
 }
+
 fun void playDrumSound(int soundKey) {
     if (soundKey == 0) {
         silencio();
@@ -154,6 +160,7 @@ fun void playDrumSound(int soundKey) {
         hiHatGain => hiHat.gain;
     }
 }
+
 fun void playMelody(int soundKey) {
     if (soundKey == -1) {
         0 => mel.freq;
@@ -183,7 +190,6 @@ section(pitzPattern2, grooveArray1, melodyArray5);
 
 section(pitzPattern2, grooveArray1, randomMelody);
 section(pitzPattern2, grooveArray1, randomMelody);
-
 
 section(pitzPattern1, grooveArray0, melodyArray0);
 section(pitzPattern1, grooveArray0, melodyArray0);
