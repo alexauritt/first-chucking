@@ -44,7 +44,7 @@ hiHatSamples[0] => hiHat.read;
 snareSamples[0] => snare.read;
 kickSamples[0] => kick.read;
 
-0.3 => s.gain;
+0.45 => s.gain;
 
 for (0 => int m; m < 8; m++) {
     Std.mtof(midiNotes[m] - 12) => lowOctaveNotes[m];
@@ -56,36 +56,51 @@ for (0 => int m; m < 8; m++) {
 [3,4,1,2,6,4,5,2] @=> int pitzPattern2[];
 [5,6,7,5,3,1,2,4] @=> int pitzPattern3[];
 
-[2,0,1,0,3,0,1,0] @=> int grooveArray1[];
-
+[1,0,0,0,1,0,0,0] @=> int grooveArray0[];
+[2,0,1,0,2,3,1,0] @=> int grooveArray1[];
+[2,1,1,3,2,3,1,2] @=> int grooveArray2[];
 
 fun void section( int pitzArray[], int grooveArray[]) {
   for (0 => int i; i < pitzArray.cap(); i++) {
     midOctaveNotes[pitzArray[i]] => s.freq;
-    playDrumSound(grooveArray1[i]);
+    playDrumSound(grooveArray[i]);
     1::quarter => now;
   }
 }
 
-fun void playDrumSound(int soundKey) {
-    if (soundKey == 0) {
-        <<< "zero" >>>;
-        0 => kick.gain;
-        0 => snare.gain;
-        0 => hiHat.gain;
-    } else if (soundKey == 1) {
+fun void silencio() {
+   0 => kick.gain;
+   0 => snare.gain;
+   0 => hiHat.gain;
+}
+
+fun void hiHatOnly() {
         0 => hiHat.pos;
         0 => kick.gain;
         0 => snare.gain;
         hiHatGain => hiHat.gain;
-    } else if (soundKey == 2) {
+}
+
+fun void hiHatAndSnare() {
+        hiHatSamples[0] => hiHat.read;
         0 => hiHat.pos;
         0 => kick.pos;        
 
         kickGain => kick.gain;
         0 => snare.gain;
         hiHatGain => hiHat.gain;
+}
+fun void playDrumSound(int soundKey) {
+    if (soundKey == 0) {
+        silencio();
+    } else if (soundKey == 1) {
+        hiHatSamples[0] => hiHat.read;
+        hiHatOnly();
+    } else if (soundKey == 2) {
+        hiHatAndSnare();
     } else if (soundKey == 3) {
+                <<< "three" >>>;
+        hiHatSamples[1] => hiHat.read;
         0 => hiHat.pos;
         0 => snare.pos;        
         0 => kick.gain;
@@ -97,16 +112,15 @@ fun void playDrumSound(int soundKey) {
 
 
 
+section(pitzPattern1, grooveArray0);
+section(pitzPattern1, grooveArray0);
 section(pitzPattern1, grooveArray1);
 section(pitzPattern1, grooveArray1);
 
-section(pitzPattern2, grooveArray1);
-section(pitzPattern2, grooveArray1);
-
-
-
+section(pitzPattern2, grooveArray2);
+section(pitzPattern2, grooveArray2);
 
 section(pitzPattern3, grooveArray1);
 section(pitzPattern3, grooveArray1);
-section(pitzPattern3, grooveArray1);
-section(pitzPattern3, grooveArray1);
+section(pitzPattern3, grooveArray2);
+section(pitzPattern3, grooveArray2);
