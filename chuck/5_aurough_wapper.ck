@@ -2,7 +2,8 @@
 
 
 .75::second => dur quarter;
-quarter / 4 => dur sixteenth;
+quarter / 2 => dur eighth;
+eighth / 4 => dur thirty_second;
 
 // notes (frequencies)
 // midi note sequence
@@ -117,12 +118,14 @@ fun void section( int pitzArray[], int grooveArray[], int melodyArray[]) {
   for (0 => int i; i < pitzArray.cap(); i++) {
       playDrumSound(grooveArray[i]);
       
-      if (i % 4 == 0) {
-          i / 4 => int subIndex;
-          playAndPanPitzSound(subIndex);
-          playMelody(melodyArray[subIndex]);
+      for (0 => int s; s < 4; s++) {
+          if (s % 4 == 0) {
+              i / 4 => int subIndex;
+              playAndPanPitzSound(pitzArray[i]);
+              playMelody(melodyArray[i]);
+          }
+          1::thirty_second => now;   
       }
-      1::sixteenth => now;
   }
 }
 
@@ -176,27 +179,20 @@ fun void playMelody(int soundKey) {
 }
 
 section(pitzPattern1, grooveArray0, melodyArray0);
-section(pitzPattern1, grooveArray0, melodyArray0);
-section(pitzPattern1, grooveArray1, melodyArray0);
 section(pitzPattern1, grooveArray1, melodyArray0);
 
 section(pitzPattern2, grooveArray2, melodyArray1);
-section(pitzPattern2, grooveArray2, melodyArray1);
 
 section(pitzPattern3, grooveArray1, melodyArray2);
-section(pitzPattern3, grooveArray1, melodyArray2);
-section(pitzPattern3, grooveArray2, melodyArray3);
+
 section(pitzPattern3, grooveArray2, melodyArray3);
 
 section(pitzPattern2, grooveArray1, melodyArray4);
 section(pitzPattern2, grooveArray1, melodyArray5);
 
 section(pitzPattern2, grooveArray1, randomMelody);
-section(pitzPattern2, grooveArray1, randomMelody);
 
 section(pitzPattern1, grooveArray0, melodyArray0);
-section(pitzPattern1, grooveArray0, melodyArray0);
-section(pitzPattern3, grooveArray2, melodyArray3);
 section(pitzPattern3, grooveArray2, melodyArray3);
 
 section(pitzPattern1, grooveArray0, melodyArray4);
