@@ -1,7 +1,8 @@
 <<< "5 Aurough Wapper" >>>;
 
 
-750::ms => dur quarter;
+.75::second => dur quarter;
+quarter / 3 => dur eighth_triplet;
 
 // notes (frequencies)
 // midi note sequence
@@ -111,11 +112,14 @@ fun void playAndPanPitzSound(int soundIndex) {
 
 fun void section( int pitzArray[], int grooveArray[], int melodyArray[]) {
   for (0 => int i; i < pitzArray.cap(); i++) {
-
-    playAndPanPitzSound(pitzArray[i]);
-    playDrumSound(grooveArray[i]);
-    playMelody(melodyArray[i]);
-    1::quarter => now;
+      for(0 => int t; t < 3; t++) {
+          if (t == 0) {
+              playAndPanPitzSound(pitzArray[i]);
+              playDrumSound(grooveArray[i]);
+              playMelody(melodyArray[i]);
+          }
+          1::eighth_triplet => now;
+      }
   }
 }
 
