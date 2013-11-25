@@ -172,29 +172,14 @@ fun void playMelody(int soundKey) {
 
 
 section(pitzPattern1, grooveArray0, melodyArray0);
-section(pitzPattern1, grooveArray0, melodyArray0);
-section(pitzPattern1, grooveArray1, melodyArray0);
-section(pitzPattern1, grooveArray1, melodyArray0);
 
-section(pitzPattern2, grooveArray2, melodyArray1);
 section(pitzPattern2, grooveArray2, melodyArray1);
 
 section(pitzPattern3, grooveArray1, melodyArray2);
-section(pitzPattern3, grooveArray1, melodyArray2);
-section(pitzPattern3, grooveArray2, melodyArray3);
-section(pitzPattern3, grooveArray2, melodyArray3);
 
 section(pitzPattern2, grooveArray1, melodyArray4);
-section(pitzPattern2, grooveArray1, melodyArray5);
 
 section(pitzPattern2, grooveArray1, randomMelody);
-section(pitzPattern2, grooveArray1, randomMelody);
 
-section(pitzPattern1, grooveArray0, melodyArray0);
-section(pitzPattern1, grooveArray0, melodyArray0);
-section(pitzPattern3, grooveArray2, melodyArray3);
-section(pitzPattern3, grooveArray2, melodyArray3);
-
-section(pitzPattern1, grooveArray0, melodyArray4);
 section(pitzPattern1, grooveArray0, melodyArray5);
 
