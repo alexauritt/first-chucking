@@ -16,8 +16,11 @@ quarter_note / 2 => dur eighth_note;
 [2,0,-1,7,3,4,-1,5] @=> int pianoPattern5[];
 [4,0,-1,3,2,7,-1,2] @=> int pianoPattern6[];
 
-Rhodey rhode => Gain rhodeGin => Pan2 panS => Gain master => dac;
-0.3 => rhode.gain;
+ModalBar modBar => Gain modBarGin => JCRev rev => Chorus chr => Gain master => dac;
+0.05 => rev.mix;
+0.15 => chr.modDepth;
+0.7 => chr.modFreq;
+0.6 => modBar.gain;
 
 
 
@@ -35,10 +38,10 @@ for (0 => int m; m < 8; m++) {
 
 fun void playPianoSound(int soundIndex) {
 	if (soundIndex == -1) {
-		0 => rhode.noteOn;
+		0 => modBar.noteOn;
 	} else {
-    1 => rhode.noteOn;
-    lowOctaveNotes[soundIndex] => rhode.freq;	
+    1 => modBar.noteOn;
+    lowOctaveNotes[soundIndex] => modBar.freq;	
 	}
 }
 

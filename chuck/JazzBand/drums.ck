@@ -12,11 +12,11 @@ SndBuf click => dac;
 me.dir(-1) + "/audio/click_02.wav" => click.read;
 
 SndBuf kick => dac;
-0.8 => kick.gain;
+0.5 => kick.gain;
 me.dir(-1) + "/audio/kick_03.wav" => kick.read;
 
 SndBuf snare => dac;
-1.0 => snare.gain;
+0.75 => snare.gain;
 0.8 => snare.rate;
 me.dir(-1) + "/audio/snare_01.wav" => snare.read;
 
