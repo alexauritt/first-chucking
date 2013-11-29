@@ -12,6 +12,9 @@ quarter_note / 2 => dur eighth_note;
 [4,6,3,6,4,5,3,2] @=> int pianoPattern1[];
 [3,4,1,2,6,4,5,2] @=> int pianoPattern2[];
 [5,6,7,5,3,1,2,4] @=> int pianoPattern3[];
+[0,7,4,3,1,-1,0,3] @=> int pianoPattern4[];
+[2,0,-1,7,3,4,-1,5] @=> int pianoPattern5[];
+[4,0,-1,3,2,7,-1,2] @=> int pianoPattern6[];
 
 Rhodey rhode => Gain rhodeGin => Pan2 panS => Gain master => dac;
 0.3 => rhode.gain;
@@ -31,10 +34,12 @@ for (0 => int m; m < 8; m++) {
 }
 
 fun void playPianoSound(int soundIndex) {
+	if (soundIndex == -1) {
+		0 => rhode.noteOn;
+	} else {
     1 => rhode.noteOn;
-    <<< midOctaveNotes[soundIndex] >>>;
-    lowOctaveNotes[soundIndex] => rhode.freq;
-    
+    lowOctaveNotes[soundIndex] => rhode.freq;	
+	}
 }
 
 fun void section( int pitzArray[]) {
@@ -45,9 +50,11 @@ fun void section( int pitzArray[]) {
 }
 
 while(true){
+	section(pianoPattern4);
+	section(pianoPattern5);
+	section(pianoPattern6);
 	section(pianoPattern1);
-	section(pianoPattern2);
-	section(pianoPattern3);
+	section(pianoPattern5);
 }
 
 
