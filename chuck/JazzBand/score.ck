@@ -3,7 +3,7 @@
 
 // Add your composition files when you want them to come in
 
-Machine.add(me.dir() + "/piano.ck") => int pianoID;
+Machine.add(me.dir() + "/modal.ck") => int pianoID;
 
 5::second => now;
 
