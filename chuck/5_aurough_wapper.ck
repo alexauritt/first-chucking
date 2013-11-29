@@ -1,7 +1,8 @@
 <<< "5 Aurough Wapper" >>>;
 
 
-750::ms => dur quarter;
+.75::second => dur quarter;
+quarter / 4 => dur sixteenth;
 
 // notes (frequencies)
 // midi note sequence
@@ -62,9 +63,12 @@ for (0 => int m; m < 8; m++) {
 [3,4,1,2,6,4,5,2] @=> int pitzPattern2[];
 [5,6,7,5,3,1,2,4] @=> int pitzPattern3[];
 
-[1,0,0,0,1,0,0,0] @=> int grooveArray0[];
-[2,0,1,0,2,3,1,0] @=> int grooveArray1[];
-[2,1,1,3,2,3,1,2] @=> int grooveArray2[];
+[1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,
+1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0] @=> int grooveArray0[];
+[2,0,1,0,2,3,1,0,2,0,1,0,2,3,1,0,
+2,0,1,0,2,3,1,0,2,0,1,0,2,3,1,0] @=> int grooveArray1[];
+[2,1,1,3,2,3,1,2,2,1,1,3,2,3,1,2,
+2,1,1,3,2,3,1,2,2,1,1,3,2,3,1,2] @=> int grooveArray2[];
 
 [-1,-1,-1,-1,-1,-1,-1,-1] @=> int melodyArray0[];
 [-1,-1,-1,3,4,7,6,2] @=> int melodyArray1[];
@@ -111,11 +115,14 @@ fun void playAndPanPitzSound(int soundIndex) {
 
 fun void section( int pitzArray[], int grooveArray[], int melodyArray[]) {
   for (0 => int i; i < pitzArray.cap(); i++) {
-
-    playAndPanPitzSound(pitzArray[i]);
-    playDrumSound(grooveArray[i]);
-    playMelody(melodyArray[i]);
-    1::quarter => now;
+      playDrumSound(grooveArray[i]);
+      
+      if (i % 4 == 0) {
+          i / 4 => int subIndex;
+          playAndPanPitzSound(subIndex);
+          playMelody(melodyArray[subIndex]);
+      }
+      1::sixteenth => now;
   }
 }
 
@@ -168,18 +175,29 @@ fun void playMelody(int soundKey) {
     }
 }
 
-
-
-
 section(pitzPattern1, grooveArray0, melodyArray0);
+section(pitzPattern1, grooveArray0, melodyArray0);
+section(pitzPattern1, grooveArray1, melodyArray0);
+section(pitzPattern1, grooveArray1, melodyArray0);
 
+section(pitzPattern2, grooveArray2, melodyArray1);
 section(pitzPattern2, grooveArray2, melodyArray1);
 
 section(pitzPattern3, grooveArray1, melodyArray2);
+section(pitzPattern3, grooveArray1, melodyArray2);
+section(pitzPattern3, grooveArray2, melodyArray3);
+section(pitzPattern3, grooveArray2, melodyArray3);
 
 section(pitzPattern2, grooveArray1, melodyArray4);
+section(pitzPattern2, grooveArray1, melodyArray5);
 
 section(pitzPattern2, grooveArray1, randomMelody);
+section(pitzPattern2, grooveArray1, randomMelody);
 
+section(pitzPattern1, grooveArray0, melodyArray0);
+section(pitzPattern1, grooveArray0, melodyArray0);
+section(pitzPattern3, grooveArray2, melodyArray3);
+section(pitzPattern3, grooveArray2, melodyArray3);
+
+section(pitzPattern1, grooveArray0, melodyArray4);
 section(pitzPattern1, grooveArray0, melodyArray5);
-
