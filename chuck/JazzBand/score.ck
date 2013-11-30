@@ -13,7 +13,7 @@ Machine.add(me.dir() + "/modal.ck") => int modalID;
 5::second => now;
 
 Machine.add(me.dir() + "/drums.ck") => int drumID;
-Machine.add(me.dir() + "/flute.ck") => int fluteID;
+Machine.add(me.dir() + "/mandolin.ck") => int mandolinID;
 Machine.add(me.dir() + "/bass.ck") => int bassID;
 
 10::second => now;
@@ -25,5 +25,5 @@ Machine.add(me.dir() + "/bass.ck") => int bassID;
 
 Machine.remove(drumID);
 Machine.remove(bassID);
-Machine.remove(fluteID);
+Machine.remove(mandolinID);
 Machine.remove(modalID);
