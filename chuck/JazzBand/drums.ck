@@ -48,6 +48,13 @@ fun void playKick(int shouldPlayKick) {
 	}
 }
 
+fun void drumRoll() {
+	0 => kick.gain;
+	0 => click.gain;
+	0 => snare.pos;
+	0.03 => snare.gain;
+}
+
 fun void clickKickSnare(int shouldPlayClick, int shouldPlayKick, int shouldPlaySnare) {
 	playClick(shouldPlayClick);
 	playKick(shouldPlayKick);
@@ -60,6 +67,7 @@ fun void clickKickSnare(int shouldPlayClick, int shouldPlayKick, int shouldPlayS
 [2,0,-1,7,3,4,-1,5] @=> int drumPattern4[];
 [4,0,-1,3,2,7,-1,2] @=> int drumPattern5[];
 
+[6,6] @=> int drumPattern6[];
 
 // -1 - rest
 //  0 - click only
@@ -68,24 +76,45 @@ fun void clickKickSnare(int shouldPlayClick, int shouldPlayKick, int shouldPlayS
 //  3 - click and kick
 //  4 - click and snare
 //  5 - click, kick, snare
+//  6 - snare roll, half note
 
 fun void playDrumSound(int soundIndex) {
 	if (soundIndex == -1) {
 		clickKickSnare(0,0,0);
+		1::eighth_note => now;
 	} else if (soundIndex == 0) {
 		clickKickSnare(1,0,0);
+		1::eighth_note => now;
 	} else if (soundIndex == 1) {
 		clickKickSnare(0,1,0);
+		1::eighth_note => now;
 	} else if (soundIndex == 2) {
 		clickKickSnare(0,0,1);
+		1::eighth_note => now;
 	} else if (soundIndex == 3) {
 		clickKickSnare(1,1,0);
+		1::eighth_note => now;
 	} else if (soundIndex == 4) {
 		clickKickSnare(0,1,1);
+		1::eighth_note => now;
 	} else if (soundIndex == 5) {
 		clickKickSnare(1,1,1);
+		1::eighth_note => now;
+	} 
+
+
+	else if (soundIndex == 6) {
+		30 => int totalCount;
+		2 * quarter_note / totalCount => dur rollTime;
+
+		0 => int counter;
+		while(counter < totalCount) {
+			drumRoll();
+			rollTime => now;
+			counter++;
+		}
 	}
-	1::eighth_note => now;
+	
 }
 
 
@@ -97,5 +126,5 @@ fun void section( int pitzArray[]) {
 
 while(true){
 	section(drumPattern1);
-	section(drumPattern2);
+	section(drumPattern6);
 }
