@@ -38,7 +38,6 @@ for (0 => int m; m < 8; m++) {
 }
 
 fun void playMandySound(int soundIndex) {
-	<<< "playing " >>>;
 	if (soundIndex == -1) {
 		0 => mandy.noteOn;
 	} else {

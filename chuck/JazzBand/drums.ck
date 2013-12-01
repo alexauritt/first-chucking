@@ -48,11 +48,36 @@ fun void playKick(int shouldPlayKick) {
 	}
 }
 
-fun void drumRoll() {
+fun void drumRoll(dur playTime) {
+	
+	
 	0 => kick.gain;
 	0 => click.gain;
 	0 => snare.pos;
-	0.03 => snare.gain;
+
+	30 => int totalCount;
+	playTime / totalCount => dur bounceTime;
+
+	0.05 => float snareStart;
+	0.025 => float snareTarget;
+	
+	snareStart - snareTarget => float snareDiff;
+	snareDiff / totalCount => float increment;
+
+	snareStart => snare.gain;
+
+	0 => int counter;
+
+	while(counter < totalCount) {
+
+		// set gain
+		counter * increment / snareDiff => float gainDecreasePercentage;
+		Math.log(gainDecreasePercentage) * snareDiff => float gainDecrease;	
+		snareStart - gainDecrease => snare.gain;
+		0 => snare.pos;
+		bounceTime => now;
+		counter++;
+	}
 }
 
 fun void clickKickSnare(int shouldPlayClick, int shouldPlayKick, int shouldPlaySnare) {
@@ -68,6 +93,9 @@ fun void clickKickSnare(int shouldPlayClick, int shouldPlayKick, int shouldPlayS
 [4,0,-1,3,2,7,-1,2] @=> int drumPattern5[];
 
 [6,6] @=> int drumPattern6[];
+[3,-1,0,-1,6] @=> int drumPattern7[];
+[3,-1,0,-1,3,-1,7] @=> int drumPattern8[];
+
 
 // -1 - rest
 //  0 - click only
@@ -77,6 +105,7 @@ fun void clickKickSnare(int shouldPlayClick, int shouldPlayKick, int shouldPlayS
 //  4 - click and snare
 //  5 - click, kick, snare
 //  6 - snare roll, half note
+//  7 - snare roll, quarter note
 
 fun void playDrumSound(int soundIndex) {
 	if (soundIndex == -1) {
@@ -104,19 +133,11 @@ fun void playDrumSound(int soundIndex) {
 
 
 	else if (soundIndex == 6) {
-		30 => int totalCount;
-		2 * quarter_note / totalCount => dur rollTime;
-
-		0 => int counter;
-		while(counter < totalCount) {
-			drumRoll();
-			rollTime => now;
-			counter++;
-		}
-	}
-	
+		drumRoll(2 * quarter_note);
+	} else if (soundIndex == 7) {
+		drumRoll(quarter_note);
+	}	
 }
-
 
 fun void section( int pitzArray[]) {
   for (0 => int i; i < pitzArray.cap(); i++) {
@@ -126,5 +147,8 @@ fun void section( int pitzArray[]) {
 
 while(true){
 	section(drumPattern1);
-	section(drumPattern6);
+	section(drumPattern7);
+	section(drumPattern1);
+	section(drumPattern8);
+
 }
