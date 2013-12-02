@@ -48,9 +48,11 @@ fun void playKick(int shouldPlayKick) {
 	}
 }
 
+fun void funFill() {
+	
+}
+
 fun void drumRoll(dur playTime) {
-	
-	
 	0 => kick.gain;
 	0 => click.gain;
 	0 => snare.pos;
@@ -90,7 +92,7 @@ fun void clickKickSnare(int shouldPlayClick, int shouldPlayKick, int shouldPlayS
 [3,0,0,0,4,0,0,0] @=> int drumPattern2[];
 [0,7,4,3,1,-1,0,3] @=> int drumPattern3[];
 [2,0,-1,7,3,4,-1,5] @=> int drumPattern4[];
-[4,0,-1,3,2,7,-1,2] @=> int drumPattern5[];
+[4,0,-1,3,2,3,-1,2] @=> int drumPattern5[];
 
 [6,6] @=> int drumPattern6[];
 [3,-1,0,-1,6] @=> int drumPattern7[];
@@ -133,9 +135,10 @@ fun void playDrumSound(int soundIndex) {
 
 
 	else if (soundIndex == 6) {
-		drumRoll(2 * quarter_note);
+		funFill();
+	//	drumRoll(2 * quarter_note);
 	} else if (soundIndex == 7) {
-		drumRoll(quarter_note);
+	//	drumRoll(quarter_note);
 	}	
 }
 
@@ -147,8 +150,8 @@ fun void section( int pitzArray[]) {
 
 while(true){
 	section(drumPattern1);
-	section(drumPattern7);
 	section(drumPattern1);
-	section(drumPattern8);
+	section(drumPattern1);
+	section(drumPattern5);
 
 }
