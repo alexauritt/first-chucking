@@ -4,18 +4,17 @@
 
 // Add your composition files when you want them to come in
 
-Machine.add(me.dir() + "/drums.ck") => int drumID;
 Machine.add(me.dir() + "/modal.ck") => int modalID;
 
 5::second => now;
-
-
+Machine.add(me.dir() + "/drums.ck") => int drumID;
+Machine.add(me.dir() + "/bass.ck") => int bassID;
 
 5::second => now;
 Machine.add(me.dir() + "/mandolin.ck") => int mandolinID;
 
 5::second => now;
-Machine.add(me.dir() + "/bass.ck") => int bassID;
+
 
 20::second => now;
 
