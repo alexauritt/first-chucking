@@ -26,7 +26,8 @@ quarter_note / 2 => dur eighth_note;
 
 [-1,-1,-1,-1,-1,3,2,4] @=> int mandyPattern9[];
 [0,-1,-1,-1,-1,-1,5,7] @=> int mandyPattern10[];
-
+[-1,-1,-1,-1,-1,-1,-1,-1] @=> int mandyRest[];
+[0,-1,-1,-1,-1,-1,-1,-1] @=> int mandyFinal[];
 // different octave arrays
 float lowOctaveNotes[8];
 float midOctaveNotes[8];
@@ -59,6 +60,9 @@ while(true){
 	section(mandyPattern5);
 	section(mandyPattern6);
 	section(mandyPattern9);
+	section(mandyPattern8);
+	section(mandyPattern7);
+	section(mandyRest);
 	section(mandyPattern1);
-	section(mandyPattern10);
+	section(mandyFinal);
 }

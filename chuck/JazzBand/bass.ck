@@ -19,7 +19,7 @@ quarter_note / 2 => dur eighth_note;
 [4,1,7,3,2,-1,1,0] @=> int bassPattern1[];
 [0,-1,-1,-1,3,-1,-1,1] @=> int bassPattern2[];
 [0,-1,-1,-1,4,-1,3,1] @=> int bassPattern3[];
-
+[0,-1,-1,-1,-1,-1,-1,-1] @=> int bassRest[];
 // different octave arrays
 float lowOctaveNotes[8];
 float midOctaveNotes[8];
@@ -50,16 +50,19 @@ fun void section( int pitzArray[]) {
 while(true){
 	section(bassPattern2);
 	section(bassPattern2);
+
 	section(bassPattern2);
 	section(bassPattern2);
 
 	section(bassPattern2);
 	section(bassPattern2);
-	section(bassPattern2);
-	section(bassPattern3);
 
 	section(bassPattern2);
-	section(bassPattern2);
+	section(bassPattern1);
+
 	section(bassPattern2);
 	section(bassPattern3);
+  
+  // THIS IS THE END
+	section(bassRest);
 }

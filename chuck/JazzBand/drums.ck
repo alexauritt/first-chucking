@@ -91,13 +91,14 @@ fun void clickKickSnare(int shouldPlayClick, int shouldPlayKick, int shouldPlayS
 
 [3,-1,0,-1,4,-1,0,-1] @=> int drumPattern1[];
 [3,0,0,0,4,0,0,0] @=> int drumPattern2[];
-[0,7,4,3,1,-1,0,3] @=> int drumPattern3[];
-[2,0,-1,7,3,4,-1,5] @=> int drumPattern4[];
+[0,2,4,3,1,-1,0,3] @=> int drumPattern3[];
+[2,0,-1,4,3,4,-1,5] @=> int drumPattern4[];
 [4,0,-1,3,2,3,-1,2] @=> int drumPattern5[];
 
 [6,6] @=> int drumPattern6[];
 [3,-1,0,-1,6] @=> int drumPattern7[];
 [3,-1,0,-1,3,-1,7] @=> int drumPattern8[];
+[-1,-1,-1,-1,-1,-1,-1] @=> int drumEnd[];
 
 
 // -1 - rest
@@ -152,7 +153,18 @@ fun void section( int pitzArray[]) {
 while(true){
 	section(drumPattern1);
 	section(drumPattern1);
+
+	section(drumPattern1);
+	section(drumPattern2);
+
 	section(drumPattern1);
 	section(drumPattern5);
 
+	section(drumPattern4);
+	section(drumPattern3);
+	
+	section(drumPattern1);
+	section(drumPattern5);
+	
+	section(drumEnd);
 }
