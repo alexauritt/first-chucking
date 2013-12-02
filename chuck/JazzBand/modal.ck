@@ -1,4 +1,5 @@
-// piano.ck
+// Assignment_06_Aurough_Jazz_Band
+// modal.ck
 // Insert the title of your piece here
 
 // Part of your composition goes here

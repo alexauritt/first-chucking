@@ -1,4 +1,5 @@
-// flute.ck
+// Assignment_06_Aurough_Jazz_Band
+// mandolin.ck
 // Insert the title of your piece here
 
 // Part of your composition goes here
