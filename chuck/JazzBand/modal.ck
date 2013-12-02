@@ -24,9 +24,6 @@ ModalBar modBar => Gain modBarGin => JCRev rev => Chorus chr => Gain master => d
 0.7 => chr.modFreq;
 0.6 => modBar.gain;
 
-
-
-
 // different octave arrays
 float lowOctaveNotes[8];
 float midOctaveNotes[8];
