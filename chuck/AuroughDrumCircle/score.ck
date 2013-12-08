@@ -5,18 +5,18 @@
 // Add your composition files when you want them to come in
 
 BPM bpm;
-bpm.tempo(96);
+bpm.tempo(120);
 
 Machine.add(me.dir() + "/modal.ck") => int modalID;
 
-5::second => now;
+bpm.wholeNote * 2 => now;
 Machine.add(me.dir() + "/drums.ck") => int drumID;
 Machine.add(me.dir() + "/bass.ck") => int bassID;
 
-5::second => now;
+bpm.wholeNote * 2 => now;
 Machine.add(me.dir() + "/mandolin.ck") => int mandolinID;
 
-22::second => now;
+bpm.wholeNote * 10.2 => now;
 
 Machine.remove(drumID);
 Machine.remove(bassID);
