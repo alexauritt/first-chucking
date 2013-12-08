@@ -3,6 +3,7 @@
 <<< "Aurough Drum Circle" >>>;
 
 // add classes
+Machine.add(me.dir() + "/mode.ck");
 Machine.add(me.dir() + "/bpm.ck");
 
 // Add score file
