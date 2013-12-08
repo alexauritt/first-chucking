@@ -34,11 +34,9 @@ fun void playPianoSound(int soundIndex) {
 fun void section( int pitzArray[]) {
   for (0 => int i; i < pitzArray.cap(); i++) {
 			playPianoSound(pitzArray[i]);
-			
+
       panner.getPanPosition() => p.pan;
-
       tempo.eighthNote => now;
-
   }
 }
 

@@ -1,6 +1,6 @@
 public class BPM {
   dur myDuration[4];
-  static dur wholeNote, halfNote, quarterNote, eighthNote, sixteenthNote, thirtySecondNode;
+  static dur wholeNote, halfNote, quarterNote, eighthNote, sixteenthNote, sixteenthTriplet, thirtySecondNode;
   
   fun void tempo(float beat) {
     60.0 / (beat) => float SPB;
@@ -9,6 +9,7 @@ public class BPM {
     quarterNote * 2 => halfNote;
     quarterNote * 0.5 => eighthNote;
     eighthNote * 0.5 => sixteenthNote;
+    eighthNote / 3 => sixteenthTriplet;
     sixteenthNote * 0.5 => thirtySecondNode;
         
     [quarterNote, eighthNote, sixteenthNote, thirtySecondNode] @=> myDuration;

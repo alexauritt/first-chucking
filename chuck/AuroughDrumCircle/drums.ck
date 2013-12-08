@@ -23,6 +23,11 @@ SndBuf snare => dac;
 0.8 => snare.rate;
 me.dir(-1) + "/audio/snare_01.wav" => snare.read;
 
+SndBuf snare2 => dac;
+1.0 => snare2.rate;
+0.0 => snare2.gain;
+me.dir(-1) + "/audio/snare_02.wav" => snare2.read;
+
 // either play a snare sound or don't (boolean parameter)
 fun void playSnare(int shouldPlaySnare) {
 	if (shouldPlaySnare) {
@@ -31,6 +36,21 @@ fun void playSnare(int shouldPlaySnare) {
 	} else {
 		0 => snare.gain;
 	}
+}
+
+fun void playGhostNotes() {
+  0.15 => float ghostGain;
+
+  0.0 => snare2.gain;
+  tempo.sixteenthTriplet => now;
+
+  0 => snare2.pos;
+  ghostGain => snare2.gain;
+  tempo.sixteenthTriplet => now;
+  
+  0 => snare2.pos;
+  ghostGain => snare2.gain;
+  tempo.sixteenthTriplet => now;  
 }
 
 // either play a click sound or don't (boolean parameter)
@@ -87,31 +107,34 @@ fun void clickKickSnare(int shouldPlayClick, int shouldPlayKick, int shouldPlayS
 
 fun void playDrumSound(int soundIndex) {
 	if (soundIndex == -1) {
-		clickKickSnare(0,0,0);
-		1::eighth_note => now;
+		tempo.eighthNote => now;
 	} else if (soundIndex == 0) {
 		clickKickSnare(1,0,0);
-		1::eighth_note => now;
+		tempo.eighthNote => now;
 	} else if (soundIndex == 1) {
 		clickKickSnare(0,1,0);
-		1::eighth_note => now;
+		tempo.eighthNote => now;
 	} else if (soundIndex == 2) {
 		clickKickSnare(0,0,1);
-		1::eighth_note => now;
+		tempo.eighthNote => now;
 	} else if (soundIndex == 3) {
 		clickKickSnare(1,1,0);
-		1::eighth_note => now;
+		tempo.eighthNote => now;
 	} else if (soundIndex == 4) {
 		clickKickSnare(0,1,1);
-		1::eighth_note => now;
+		tempo.eighthNote => now;
 	} else if (soundIndex == 5) {
 		clickKickSnare(1,1,1);
-		1::eighth_note => now;
+		tempo.eighthNote => now;
 	} 
 }
 
 fun void section( int pitzArray[]) {
+  Math.random2(0,3) => int randy;
   for (0 => int i; i < pitzArray.cap(); i++) {
+    if ((i == pitzArray.cap() - 1) && (randy == 0)) {
+      spork ~ playGhostNotes();
+    }
 		playDrumSound(pitzArray[i]);      
   }
 }
