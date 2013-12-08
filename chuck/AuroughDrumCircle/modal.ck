@@ -6,6 +6,7 @@
 
 BPM tempo;
 Mode mode;
+Panner panner;
 
 [4,6,3,6,4,5,3,2] @=> int pianoPattern1[];
 [3,4,1,2,6,4,5,2] @=> int pianoPattern2[];
@@ -15,7 +16,7 @@ Mode mode;
 [4,0,-1,3,2,7,-1,2] @=> int pianoPattern6[];
 [-1,-1,-1,-1,-1,-1,-1,-1] @=> int pianoRest[];
 
-ModalBar modBar => Gain modBarGin => JCRev rev => Chorus chr => Gain master => dac;
+ModalBar modBar => Gain modBarGin => JCRev rev => Chorus chr => Gain master => Pan2 p => dac;
 0.05 => rev.mix;
 0.15 => chr.modDepth;
 0.7 => chr.modFreq;
@@ -32,8 +33,12 @@ fun void playPianoSound(int soundIndex) {
 
 fun void section( int pitzArray[]) {
   for (0 => int i; i < pitzArray.cap(); i++) {
-			playPianoSound(pitzArray[i]);      
+			playPianoSound(pitzArray[i]);
+			
+      panner.getPanPosition() => p.pan;
+
       tempo.eighthNote => now;
+
   }
 }
 

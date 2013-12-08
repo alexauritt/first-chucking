@@ -15,18 +15,18 @@ Machine.add(me.dir() + "/modal.ck") => int modalID;
 // wait 2 measures
 bpm.wholeNote * 2 => now;
 
-Machine.add(me.dir() + "/drums.ck") => int drumID;
-Machine.add(me.dir() + "/bass.ck") => int bassID;
+//Machine.add(me.dir() + "/drums.ck") => int drumID;
+//Machine.add(me.dir() + "/bass.ck") => int bassID;
 
 // wait another 2 measures
 
 bpm.wholeNote * 2 => now;
 
-Machine.add(me.dir() + "/mandolin.ck") => int mandolinID;
+//Machine.add(me.dir() + "/mandolin.ck") => int mandolinID;
 
 bpm.wholeNote * 8.5 => now;
 
-Machine.remove(drumID);
-Machine.remove(bassID);
-Machine.remove(mandolinID);
-Machine.remove(modalID);
+//Machine.remove(drumID);
+//Machine.remove(bassID);
+//Machine.remove(mandolinID);
+//Machine.remove(modalID);
