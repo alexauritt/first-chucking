@@ -24,7 +24,7 @@ bpm.wholeNote * 2 => now;
 
 Machine.add(me.dir() + "/mandolin.ck") => int mandolinID;
 
-bpm.wholeNote * 10 => now;
+bpm.wholeNote * 8.5 => now;
 
 Machine.remove(drumID);
 Machine.remove(bassID);
