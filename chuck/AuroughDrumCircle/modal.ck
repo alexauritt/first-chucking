@@ -21,8 +21,6 @@ ModalBar modBar => Gain modBarGin => JCRev rev => Chorus chr => Gain master => d
 0.7 => chr.modFreq;
 0.6 => modBar.gain;
 
-
-
 fun void playPianoSound(int soundIndex) {
 	if (soundIndex == -1) {
 		0 => modBar.noteOn;
