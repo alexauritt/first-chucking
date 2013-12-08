@@ -4,8 +4,9 @@
 
 // Part of your composition goes here
 
-0.625::second => dur quarter_note;
-quarter_note / 2 => dur eighth_note;
+BPM tempo;
+tempo.quarterNote => dur quarter_note;
+tempo.eighthNote => dur eighth_note;
 
 0.4 => float clickGain;
 0.75 => float snareGain;

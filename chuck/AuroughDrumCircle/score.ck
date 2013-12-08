@@ -4,6 +4,9 @@
 
 // Add your composition files when you want them to come in
 
+BPM bpm;
+bpm.tempo(96);
+
 Machine.add(me.dir() + "/modal.ck") => int modalID;
 
 5::second => now;

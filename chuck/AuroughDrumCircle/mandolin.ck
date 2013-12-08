@@ -9,8 +9,9 @@ Mandolin mandy => dac;
 0.02 => mandy.stringDetune;
 0.1 => mandy.gain;
 
-0.625::second => dur quarter_note;
-quarter_note / 2 => dur eighth_note;
+BPM tempo;
+tempo.quarterNote => dur quarter_note;
+tempo.eighthNote => dur eighth_note;
 
 [46.0, 48.0, 49.0, 51.0, 53.0, 54.0, 56.0, 58.0]  @=> float midiNotes[];
 

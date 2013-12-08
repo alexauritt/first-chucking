@@ -1,9 +1,9 @@
-// Assignment_06_Aurough_Jazz_Band
-
 // initialize.ck
-// Insert the title of your piece here
+// Assignment_07_Aurough_Drum_Circle
+<<< "Aurough Drum Circle" >>>;
 
-// Something new will go here next week
+// add classes
+Machine.add(me.dir() + "/bpm.ck");
 
 // Add score file
 Machine.add(me.dir() + "/score.ck");
