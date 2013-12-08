@@ -1,5 +1,12 @@
 public class Mode {  
-  // C Ionian Mode
+
+  // D Dorian scale
+//  [50.0, 52.0, 53.0, 55.0, 57.0, 59.0, 60.0, 60.2]  @=> float myScale[];
+  
+  // Eb Mixolydian
+//  [51.0, 53.0, 55.0, 56.0, 58.0, 60.0, 61.0, 63.0]  @=> float myScale[];
+  
+  // C Ionian scale
   [48.0, 50.0, 52.0, 53.0, 55.0, 57.0, 59.0, 60.0]  @=> float myScale[];
   
   // play central octave
