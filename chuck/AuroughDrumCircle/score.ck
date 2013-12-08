@@ -10,11 +10,13 @@
 BPM bpm;
 bpm.tempo(96);
 
+
 Machine.add(me.dir() + "/modal.ck") => int modalID;
 
 // wait 2 measures
 bpm.wholeNote * 2 => now;
 
+Machine.add(me.dir() + "/sinner.ck") => int sinnerID;
 Machine.add(me.dir() + "/drums.ck") => int drumID;
 Machine.add(me.dir() + "/bass.ck") => int bassID;
 
@@ -24,7 +26,11 @@ bpm.wholeNote * 2 => now;
 
 Machine.add(me.dir() + "/mandolin.ck") => int mandolinID;
 
-bpm.wholeNote * 8.5 => now;
+bpm.wholeNote * 8 => now;
+
+Machine.remove(sinnerID);
+
+bpm.wholeNote * 0.5 => now;
 
 Machine.remove(drumID);
 Machine.remove(bassID);
